@@ -1,0 +1,182 @@
+#include <iostream>
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+#include <math.h>
+using namespace std;
+/* run this program using the console pauser or add your own getch, system("pause") or input loop */
+int IsLeapYear(int year);
+int MonthDays(int month, int year);
+void PrevDate(int day, int month, int year);
+void NextDate(int day, int month, int year);
+
+int main(int argc, char** argv) {
+	int task_num;
+	cout << "Enter the task number: " << endl;
+	cin >> task_num;
+    
+	if(task_num==1)
+	{
+		int day, year, month;
+	    int i;
+	
+	
+	
+	    cout << "Vvedite datu (den'): " << endl;
+		cin >> day;
+		cout << "Vvedite mesyac: " << endl;		
+		cin >> month;
+		cout << "Vvedite god: " << endl;
+		cin >> year;
+		PrevDate(day, month, year);
+		cout << endl;
+	    
+	}
+	if(task_num==2)
+	{
+		int day, year, month;
+	    int i;
+	
+	
+	
+	    cout << "Vvedite datu (den'): " << endl;
+		cin >> day;
+		cout << "Vvedite mesyac: " << endl;		
+		cin >> month;
+		cout << "Vvedite god: " << endl;
+		cin >> year;
+		NextDate(day, month, year);
+		cout << endl;
+	}
+	return 0;
+}
+
+int IsLeapYear(int year)
+{   
+    if (year % 400 == 0)
+	    return 1;
+	else if (year % 100 == 0)
+	    return 0;
+	else if (year % 4 == 0)
+	    return 1;
+    else
+		return 0;	
+}
+
+int MonthDays(int month, int year)
+{
+	if((month==1)||(month==3)||(month==5)||(month==7)||(month==8)||(month==10)||(month==12))
+	    return 31;
+	if((month==4)||(month==6)||(month==9)||(month==11))
+	    return 30;
+	if(month==2)
+	{
+		if (IsLeapYear(year))
+		    return 29;
+		else
+		    return 28;
+	}	
+}
+
+
+void PrevDate(int day, int month, int year)
+{
+	if (day == 1)
+	{
+		if (month == 1)
+		{
+			year = year - 1;
+			month = 12;
+			day = MonthDays(month, year);
+		}
+		else 
+		{
+			month = month - 1;
+			day = MonthDays(month, year);
+		}
+	}
+	else
+	{
+		day = day - 1;
+	}
+
+	cout << "Predydushii den': "
+		<< day <<"." << month << "." << year << endl;
+}
+
+void NextDate(int day, int month, int year)
+{
+	if (day == 31)
+	{
+		if (month == 12)
+		{
+			year = year + 1;
+			month = 1;
+			day = 1;
+		}
+	}
+	if (day == 31)
+	{
+		switch (month)
+		{
+		case 1:
+		case 3:
+		case 5:
+		case 7:
+		case 8:
+		case 10:
+		{   
+		    month = month + 1;
+			day = 1;
+			break;
+		}
+	    }
+	}
+	else if (day == 30)	
+	{
+		switch(month)
+		{
+		case 4:
+		case 6:
+		case 9:
+		case 11:
+		{
+		    month=month+1;
+		    day=1;
+		    break;
+		}
+		default:
+		{
+			day=day+1;
+    	}
+        }
+		
+	}
+	else if ((day == 28)&&(month == 2))
+	{
+		if(IsLeapYear(year))
+		{
+			day=29;
+		}
+		else
+		{
+			month=month+1;
+			day=1;
+		}
+	}
+	else if ((day == 29)&&(month == 2))
+	{
+		if(IsLeapYear(year))
+		{
+		    month=3;
+		    day=1;
+		}		
+	}
+	else
+	{
+		day=day+1;
+	}
+
+	cout << "Sleduushii den': "
+		<< day <<"." << month << "." << year << endl;
+}
